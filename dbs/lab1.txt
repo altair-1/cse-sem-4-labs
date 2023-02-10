@@ -1,0 +1,31 @@
+q1) create table employee (emp_no number(10), emp_name varchar(20), emp_address varchar (20));
+
+q2) insert into employee values (2082,'prashant','bangalore');
+    insert into employee values (3096,'rishi','manipal');
+    insert into employee values (4892,'lisa','manipal');
+    insert into employee values (2333,'soham','mumbai');
+    insert into employee values (2786,'megha','mangalore');
+    select * from employee;
+
+q3) select emp_name names from employee;
+
+q4) select * from employee where emp_address='manipal';
+
+q5) alter table employee add (salary number(20));
+    alter table employee modify (salary number(10));
+
+q6) update employee set salary = 425000;
+    update employee set salary = 350000 where emp_no = 2333;
+    update employee set salary = 295000 where emp_no = 3096;
+    update employee set salary = 180000 where emp_no = 2082;
+    update employee set salary = 330000 where emp_no = 2786;
+    select * from employee;
+
+q7) desc employee;
+
+q8) delete from employee where emp_address = 'mangalore';
+    select * from employee;
+
+q9) rename employee to employee1;
+
+q10) drop table employee1;

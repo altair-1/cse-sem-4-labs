@@ -1,0 +1,140 @@
+q1) create table EMPLOYEE(
+  2  emp_no number(10) PRIMARY KEY,
+  3  emp_name varchar(20) NOT NULL,
+  4  gender varchar(1) NOT NULL,
+  5  salary number(10) NOT NULL,
+  6  address varchar (20) NOT NULL);
+Table created.
+
+SQL> alter table EMPLOYEE add check(gender in('M','F'));
+
+Table altered.
+
+SQL> desc EMPLOYEE;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_NO                                    NOT NULL NUMBER(10)
+ EMP_NAME                                  NOT NULL VARCHAR2(20)
+ GENDER                                    NOT NULL VARCHAR2(1)
+ SALARY                                    NOT NULL NUMBER(10)
+ ADDRESS                                   NOT NULL VARCHAR2(20)
+
+q2) SQL> create table DEPARTMENT(
+  2  dept_no number(10) PRIMARY KEY,
+  3  dept_name varchar(20) NOT NULL UNIQUE,
+  4  location varchar (20));
+
+Table created.
+
+SQL> alter table EMPLOYEE add (DNo numeric(5));
+
+Table altered.
+
+SQL> desc EMPLOYEE;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_NO                                    NOT NULL NUMBER(10)
+ EMP_NAME                                  NOT NULL VARCHAR2(20)
+ GENDER                                    NOT NULL VARCHAR2(1)
+ SALARY                                    NOT NULL NUMBER(10)
+ ADDRESS                                   NOT NULL VARCHAR2(20)
+ DNO                                                NUMBER(5)
+
+SQL> desc DEPARTMENT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NO                                   NOT NULL NUMBER(10)
+ DEPT_NAME                                 NOT NULL VARCHAR2(20)
+ LOCATION                                           VARCHAR2(20)
+
+q3) SQL> alter table EMPLOYEE add constraint FK_DNo foreign key(DNo) references DEPARTMENT(dept_no);
+
+Table altered.
+
+q4) 
+SQL> insert into DEPARTMENT (dept_no,dept_name,location) values (156,'HR','bangalore');
+
+1 row created.
+
+SQL> insert into DEPARTMENT (dept_no,dept_name,location) values (128,'finance','delhi');
+
+1 row created.
+
+SQL> insert into EMPLOYEE(emp_no,emp_name,gender,salary,address,DNo) values (2163,'rahul','M',25000,'bangalore',156);
+
+1 row created.
+
+SQL> insert into EMPLOYEE(emp_no,emp_name,gender,salary,address,DNo) values (2201,'shreya','F',35000,'delhi',128);
+
+1 row created.
+
+SQL> select * from employee;
+
+    EMP_NO EMP_NAME             G     SALARY ADDRESS                     DNO
+---------- -------------------- - ---------- -------------------- ----------
+      2163 rahul                M      25000 bangalore                   156
+      2201 shreya               F      35000 delhi                       128
+
+SQL> select * from department;
+
+   DEPT_NO DEPT_NAME            LOCATION
+---------- -------------------- --------------------
+       156 HR                   bangalore
+       128 finance              delhi
+
+q5) SQL> insert into DEPARTMENT (dept_no,dept_name,location) values (156,'human resource','bangalore');
+insert into DEPARTMENT (dept_no,dept_name,location) values (156,'human resource','bangalore')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (DBL47.SYS_C00183557) violated
+
+
+SQL> insert into DEPARTMENT (dept_no,dept_name,location) values (128,'tech','mumbai');
+insert into DEPARTMENT (dept_no,dept_name,location) values (128,'tech','mumbai')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (DBL47.SYS_C00183557) violated
+
+
+SQL> insert into EMPLOYEE(emp_no,emp_name,gender,salary,address,DNo) values (2163,'rahul','M',25000,'bangalore',156);
+insert into EMPLOYEE(emp_no,emp_name,gender,salary,address,DNo) values (2163,'rahul','M',25000,'bangalore',156)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (DBL47.SYS_C00183528) violated
+
+
+SQL> insert into EMPLOYEE(emp_no,emp_name,gender,salary,address,DNo) values (2163,'shreya','F',35000,'delhi',128);
+insert into EMPLOYEE(emp_no,emp_name,gender,salary,address,DNo) values (2163,'shreya','F',35000,'delhi',128)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (DBL47.SYS_C00183528) violated
+
+q6) SQL> delete from DEPARTMENT where dept_no=156;
+delete from DEPARTMENT where dept_no=156
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (DBL47.SYS_C00183632) violated - child record
+found
+
+
+SQL> alter table EMPLOYEE drop constraint abc;
+alter table EMPLOYEE drop constraint abc
+                                     *
+ERROR at line 1:
+ORA-02443: Cannot drop constraint  - nonexistent constraint
+
+q7) alter table EMPLOYEE drop constraint FK_DNo;
+
+Table altered.
+
+SQL> alter table EMPLOYEE add constraint FK_DNo foreign key(DNo) references DEPARTMENT(dept_no) on delete cascade;
+
+Table altered.
+
+q8) SQL> alter table EMPLOYEE(SALARY DEFAULT 10000);
+
+Table altered.
+
+SQL> insert into EMPLOYEE values (2097,'priyansh','M',DEFAULT,'manipal',156);
+
+1 row created.
