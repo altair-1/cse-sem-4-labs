@@ -1,0 +1,146 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;program to reverse an array of 10 32-bit numbers 
+    2 00000000                 AREA             RESET,DATA,READONLY
+    3 00000000                 EXPORT           __Vectors
+    4 00000000         __Vectors
+    5 00000000 10001000        DCD              0x10001000
+    6 00000004 00000000        DCD              Reset_Handler
+    7 00000008                 ALIGN
+    8 00000008                 AREA             mycode,CODE,READONLY
+    9 00000000                 ENTRY
+   10 00000000                 EXPORT           Reset_Handler
+   11 00000000         Reset_Handler
+   12 00000000 480D            LDR              R0,=DST
+   13 00000002 490D            LDR              R1,=DST
+   14 00000004 F101 0124       ADD              R1, #36
+   15 00000008 F04F 030A       MOV              R3, #10
+   16 0000000C F04F 0205       MOV              R2, #5
+   17 00000010 F840 2B04 
+                       L1      STR              R2,[R0],#4
+   18 00000014 F102 0205       ADD              R2,#5
+   19 00000018 F1A3 0301       SUB              R3,#1
+   20 0000001C 2B00            CMP              R3,#0
+   21 0000001E D1F7            BNE              L1
+   22 00000020 4805            LDR              R0,=DST
+   23 00000022 6805    L2      LDR              R5,[R0]
+   24 00000024 680E            LDR              R6,[R1]
+   25 00000026 6006            STR              R6,[R0]
+   26 00000028 600D            STR              R5,[R1]
+   27 0000002A F100 0004       ADD              R0,#4
+   28 0000002E F1A1 0104       SUB              R1,#4
+   29 00000032 4281            CMP              R1,R0
+   30 00000034 D2F5            BHS              L2
+   31 00000036         
+   32 00000036         STOP
+   33 00000036 E7FE            B                STOP
+   34 00000038 00000000 
+              00000000 
+              00000000         AREA             mydata,DATA,READWRITE
+   35 00000000 00000000 
+                       DST     DCD              0
+   36 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q4.d -
+o.\q4.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q4.lst q4.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file q4.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 4 in file q4.s
+   Uses
+      At line 3 in file q4.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+L1 00000010
+
+Symbol: L1
+   Definitions
+      At line 17 in file q4.s
+   Uses
+      At line 21 in file q4.s
+Comment: L1 used once
+L2 00000022
+
+Symbol: L2
+   Definitions
+      At line 23 in file q4.s
+   Uses
+      At line 30 in file q4.s
+Comment: L2 used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 11 in file q4.s
+   Uses
+      At line 6 in file q4.s
+      At line 10 in file q4.s
+
+STOP 00000036
+
+Symbol: STOP
+   Definitions
+      At line 32 in file q4.s
+   Uses
+      At line 33 in file q4.s
+Comment: STOP used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 8 in file q4.s
+   Uses
+      None
+Comment: mycode unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DST 00000000
+
+Symbol: DST
+   Definitions
+      At line 35 in file q4.s
+   Uses
+      At line 12 in file q4.s
+      At line 13 in file q4.s
+      At line 22 in file q4.s
+
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 34 in file q4.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+342 symbols in table
