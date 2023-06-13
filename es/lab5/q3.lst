@@ -1,0 +1,168 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000                 EXPORT           __Vectors
+    3 00000000         __Vectors
+    4 00000000 10001000        DCD              0x10001000  ;stack pointer valu
+                                                            e when stack is emp
+                                                            ty
+    5 00000004 00000000        DCD              Reset_Handler ;reset vector
+    6 00000008                 ALIGN
+    7 00000008                 AREA             mycode, CODE, READONLY
+    8 00000000                 ENTRY
+    9 00000000                 EXPORT           Reset_Handler
+   10 00000000         Reset_Handler
+   11 00000000 4814            LDR              R0, =ARR
+   12 00000002 4B15            LDR              R3, =KEY
+   13 00000004 681A            LDR              R2, [R3]
+   14 00000006 F04F 0100       MOV              R1, #0      ;loop counter 
+   15 0000000A F100 0724       ADD              R7, R0, #36 ;index for last ele
+                                                            ment
+   16 0000000E F850 3B04 
+                       loop    LDR              R3, [R0], #4
+   17 00000012 42B8            CMP              R0, R7
+   18 00000014 DC04            BGT              exit
+   19 00000016 4293            CMP              R3, R2
+   20 00000018 D002            BEQ              exit
+   21 0000001A F101 0101       ADD              R1, #1
+   22 0000001E E7F6            B                loop
+   23 00000020 480E    exit    LDR              R0,=INDEX
+   24 00000022 6001            STR              R1, [R0]
+   25 00000024 E7FE    STOP    B                STOP
+   26 00000026 00 00 0000000A 
+              00000009 
+              00000008 
+              00000007 
+              00000006 
+              00000005 
+              00000004 
+              00000003 
+              00000002 
+              00000001 ARR     DCD              10,9,8,7,6,5,4,3,2,1
+   27 00000050 00000009 
+                       KEY     DCD              9
+   28 00000054 00000000 
+              00000000 
+              00000000         AREA             mydata, DATA, READWRITE
+   29 00000000 00000001 
+                       INDEX   DCD              1
+   30 00000004                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\q3.d -
+o.\q3.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\NX
+P\LPC17xx --predefine="__EVAL SETA 1" --list=.\q3.lst q3.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file q3.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 3 in file q3.s
+   Uses
+      At line 2 in file q3.s
+Comment: __Vectors used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+ARR 00000028
+
+Symbol: ARR
+   Definitions
+      At line 26 in file q3.s
+   Uses
+      At line 11 in file q3.s
+Comment: ARR used once
+KEY 00000050
+
+Symbol: KEY
+   Definitions
+      At line 27 in file q3.s
+   Uses
+      At line 12 in file q3.s
+Comment: KEY used once
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 10 in file q3.s
+   Uses
+      At line 5 in file q3.s
+      At line 9 in file q3.s
+
+STOP 00000024
+
+Symbol: STOP
+   Definitions
+      At line 25 in file q3.s
+   Uses
+      At line 25 in file q3.s
+Comment: STOP used once
+exit 00000020
+
+Symbol: exit
+   Definitions
+      At line 23 in file q3.s
+   Uses
+      At line 18 in file q3.s
+      At line 20 in file q3.s
+
+loop 0000000E
+
+Symbol: loop
+   Definitions
+      At line 16 in file q3.s
+   Uses
+      At line 22 in file q3.s
+Comment: loop used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 7 in file q3.s
+   Uses
+      None
+Comment: mycode unused
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+INDEX 00000000
+
+Symbol: INDEX
+   Definitions
+      At line 29 in file q3.s
+   Uses
+      At line 23 in file q3.s
+Comment: INDEX used once
+mydata 00000000
+
+Symbol: mydata
+   Definitions
+      At line 28 in file q3.s
+   Uses
+      None
+Comment: mydata unused
+2 symbols
+344 symbols in table
